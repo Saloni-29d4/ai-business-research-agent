@@ -1,0 +1,7 @@
+# AI Business Research & Competitive Intelligence Agent
+
+An Agentic AI system that researches business questions, verifies evidence, compares information, detects contradictions, and generates an executive decision brief.
+
+## Agent Workflow
+
+Research Planner → Source Discovery → Extraction → Verification → Comparison → Contradiction Detection → Synthesis → Executive Agent
