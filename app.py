@@ -1,4 +1,5 @@
 import streamlit as st
+import time
 
 st.set_page_config(
     page_title="AI Business Research Agent",
@@ -7,54 +8,109 @@ st.set_page_config(
 )
 
 st.title("🤖 AI Business Research & Competitive Intelligence Agent")
-
-st.write(
-    "Ask a business question and get an evidence-based research brief."
-)
+st.caption("Agentic AI system for evidence-based business research and decision support")
 
 question = st.text_area(
-    "Enter your business question:",
-    placeholder="Example: Should our company expand into the electric scooter market?"
+    "🔍 Enter your strategic business question",
+    placeholder="Example: Should our company expand into the electric scooter market?",
+    height=100
 )
 
-if st.button("🚀 Start Research"):
-    if question.strip():
+if st.button("🚀 Start Research", use_container_width=True):
+
+    if not question.strip():
+        st.warning("Please enter a business question.")
+    else:
+
         st.success("Research process started!")
 
-        st.subheader("Agent Workflow")
+        st.subheader("🤖 Agent Workflow")
 
         agents = [
-            "🔎 Research Planner",
-            "🌐 Source Discovery",
-            "📄 Evidence Extraction",
-            "✅ Verification",
-            "⚖️ Comparison",
-            "⚠️ Contradiction Detection",
-            "🧠 Synthesis",
-            "📊 Executive Agent"
+            ("🔎", "Research Planner", "Breaking the business question into research tasks"),
+            ("🌐", "Source Discovery", "Finding relevant evidence sources"),
+            ("📄", "Evidence Extraction", "Extracting important claims and information"),
+            ("✅", "Verification", "Checking evidence and source reliability"),
+            ("⚖️", "Comparison", "Comparing different pieces of information"),
+            ("⚠️", "Contradiction Detection", "Identifying conflicting information"),
+            ("🧠", "Synthesis", "Combining verified evidence"),
+            ("📊", "Executive Agent", "Preparing the final decision brief")
         ]
 
-        for agent in agents:
-            st.write("✓", agent)
+        progress = st.progress(0)
 
-        st.subheader("Executive Decision Brief")
+        for i, (icon, name, description) in enumerate(agents):
+            with st.container(border=True):
+                st.write(f"{icon} **{name}**")
+                st.caption(description)
+
+            progress.progress((i + 1) / len(agents))
+            time.sleep(0.15)
+
+        st.success("✅ Research pipeline completed")
+
+        st.divider()
+
+        st.header("📊 Executive Decision Brief")
 
         st.info(
-            "The AI research pipeline will analyze the business question "
-            "and generate an evidence-backed executive brief."
+            "This prototype demonstrates how an Agentic AI research pipeline "
+            "organizes evidence before preparing an executive brief."
         )
 
-        st.write("### Verified Facts")
-        st.write("Research results will appear here.")
+        col1, col2 = st.columns(2)
 
-        st.write("### Conflicting Information")
-        st.write("Conflicting evidence will appear here.")
+        with col1:
+            st.subheader("✅ Verified Facts")
 
-        st.write("### Inferences")
-        st.write("AI-generated inferences will appear here.")
+            st.write(
+                "• The system separates research evidence from final conclusions."
+            )
+            st.write(
+                "• Multiple sources can be compared before synthesis."
+            )
+            st.write(
+                "• Evidence can be classified according to verification status."
+            )
 
-        st.write("### Unknown Information")
-        st.write("Information that could not be verified will appear here.")
+        with col2:
+            st.subheader("⚠️ Conflicting Information")
 
-    else:
-        st.warning("Please enter a business question.")
+            st.write(
+                "• Different sources may report different market conditions."
+            )
+            st.write(
+                "• Conflicting claims should be highlighted instead of hidden."
+            )
+            st.write(
+                "• Additional verification may be required before a decision."
+            )
+
+        st.subheader("🧠 Inferences")
+
+        st.write(
+            "Based on the available evidence, the research agent can identify "
+            "potential opportunities, risks and areas requiring further investigation."
+        )
+
+        st.subheader("❓ Unknown Information")
+
+        st.write(
+            "• Current company-specific financial data is not available."
+        )
+        st.write(
+            "• Customer-level research data is not available."
+        )
+        st.write(
+            "• Additional real-world sources would be required for a final business decision."
+        )
+
+        st.divider()
+
+        st.subheader("📌 Research Question")
+
+        st.write(question)
+
+        st.caption(
+            "Demo prototype — real-time external research can be connected through APIs."
+        )
